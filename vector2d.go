@@ -1,4 +1,4 @@
-package vector2
+package gummymath
 
 import "math"
 
@@ -9,7 +9,7 @@ type Vector2D struct {
 }
 
 // New creates a new 2D vector.
-func New(x, y float64) *Vector2D {
+func NewVector2D(x, y float64) *Vector2D {
 	return &Vector2D{X: x, Y: y}
 }
 
