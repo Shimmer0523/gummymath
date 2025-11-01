@@ -19,11 +19,11 @@ func TestNew(t *testing.T) {
 	})
 }
 
-func TestAdd(t *testing.T) {
+func TestAdded(t *testing.T) {
 	t.Run("adds two vectors", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(1, 2)
 		v2 := gummymath.NewVector2D(3, 4)
-		v3 := v1.Add(v2)
+		v3 := v1.Added(v2)
 		if v3.X != 4 {
 			t.Errorf("expected X to be 4, got %f", v3.X)
 		}
@@ -33,11 +33,11 @@ func TestAdd(t *testing.T) {
 	})
 }
 
-func TestSub(t *testing.T) {
+func TestSubed(t *testing.T) {
 	t.Run("subtracts two vectors", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(5, 6)
 		v2 := gummymath.NewVector2D(1, 2)
-		v3 := v1.Sub(v2)
+		v3 := v1.Subed(v2)
 		if v3.X != 4 {
 			t.Errorf("expected X to be 4, got %f", v3.X)
 		}
@@ -47,10 +47,10 @@ func TestSub(t *testing.T) {
 	})
 }
 
-func TestScale(t *testing.T) {
+func TestScaled(t *testing.T) {
 	t.Run("scales a vector", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(2, 3)
-		v2 := v1.Scale(2)
+		v2 := v1.Scaled(2)
 		if v2.X != 4 {
 			t.Errorf("expected X to be 4, got %f", v2.X)
 		}
@@ -60,32 +60,32 @@ func TestScale(t *testing.T) {
 	})
 }
 
-func TestDot(t *testing.T) {
+func TestDotted(t *testing.T) {
 	t.Run("calculates the dot product", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(1, 2)
 		v2 := gummymath.NewVector2D(3, 4)
-		dot := v1.Dot(v2)
+		dot := v1.Dotted(v2)
 		if dot != 11 {
 			t.Errorf("expected dot product to be 11, got %f", dot)
 		}
 	})
 }
 
-func TestCross(t *testing.T) {
+func TestCrossed(t *testing.T) {
 	t.Run("calculates the cross product", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(1, 2)
 		v2 := gummymath.NewVector2D(3, 4)
-		cross := v1.Cross(v2)
+		cross := v1.Crossed(v2)
 		if cross != -2 {
 			t.Errorf("expected cross product to be -2, got %f", cross)
 		}
 	})
 }
 
-func TestRotate(t *testing.T) {
+func TestRotated(t *testing.T) {
 	t.Run("rotates a vector", func(t *testing.T) {
 		v1 := gummymath.NewVector2D(1, 0)
-		v2 := v1.Rotate(math.Pi / 2)
+		v2 := v1.Rotated(math.Pi / 2)
 		if math.Abs(v2.X-0) > 1e-9 {
 			t.Errorf("expected X to be 0, got %f", v2.X)
 		}
@@ -101,6 +101,73 @@ func TestLength(t *testing.T) {
 		length := v1.Length()
 		if length != 5 {
 			t.Errorf("expected length to be 5, got %f", length)
+		}
+	})
+}
+
+func TestAdd(t *testing.T) {
+	t.Run("adds two vectors destructively", func(t *testing.T) {
+		v1 := gummymath.NewVector2D(1, 2)
+		v2 := gummymath.NewVector2D(3, 4)
+		v1.Add(v2)
+		if v1.X != 4 {
+			t.Errorf("expected X to be 4, got %f", v1.X)
+		}
+		if v1.Y != 6 {
+			t.Errorf("expected Y to be 6, got %f", v1.Y)
+		}
+	})
+}
+
+func TestSub(t *testing.T) {
+	t.Run("subtracts two vectors destructively", func(t *testing.T) {
+		v1 := gummymath.NewVector2D(5, 6)
+		v2 := gummymath.NewVector2D(1, 2)
+		v1.Sub(v2)
+		if v1.X != 4 {
+			t.Errorf("expected X to be 4, got %f", v1.X)
+		}
+		if v1.Y != 4 {
+			t.Errorf("expected Y to be 4, got %f", v1.Y)
+		}
+	})
+}
+
+func TestScale(t *testing.T) {
+	t.Run("scales a vector destructively", func(t *testing.T) {
+		v1 := gummymath.NewVector2D(2, 3)
+		v1.Scale(2)
+		if v1.X != 4 {
+			t.Errorf("expected X to be 4, got %f", v1.X)
+		}
+		if v1.Y != 6 {
+			t.Errorf("expected Y to be 6, got %f", v1.Y)
+		}
+	})
+}
+
+func TestNormalize(t *testing.T) {
+	t.Run("normalizes a vector destructively", func(t *testing.T) {
+		v1 := gummymath.NewVector2D(3, 4)
+		v1.Normalize()
+		if math.Abs(v1.X-0.6) > 1e-9 {
+			t.Errorf("expected X to be 0.6, got %f", v1.X)
+		}
+		if math.Abs(v1.Y-0.8) > 1e-9 {
+			t.Errorf("expected Y to be 0.8, got %f", v1.Y)
+		}
+	})
+}
+
+func TestRotate(t *testing.T) {
+	t.Run("rotates a vector destructively", func(t *testing.T) {
+		v1 := gummymath.NewVector2D(1, 0)
+		v1.Rotate(math.Pi / 2)
+		if math.Abs(v1.X-0) > 1e-9 {
+			t.Errorf("expected X to be 0, got %f", v1.X)
+		}
+		if math.Abs(v1.Y-1) > 1e-9 {
+			t.Errorf("expected Y to be 1, got %f", v1.Y)
 		}
 	})
 }
