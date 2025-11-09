@@ -3,6 +3,7 @@
 Auto-generated from all feature plans. Last updated: 2025-10-31
 
 ## Active Technologies
+- Go 1.25.3 + Go Standard Library, `gummymath.Vector2D` (003-add-rect2d-struct)
 
 - Go 1.25.3 + None (Standard Library Only) (001-2d-vector-library)
 
@@ -22,6 +23,7 @@ tests/
 Go 1.25.3: Follow standard conventions
 
 ## Recent Changes
+- 003-add-rect2d-struct: Added Go 1.25.3 + Go Standard Library, `gummymath.Vector2D`
 - 001-2d-vector-library: Added Go 1.25.3 + None (Standard Library Only)
 
 - 001-2d-vector-library: Added Go 1.25.3 + None (Standard Library Only)
